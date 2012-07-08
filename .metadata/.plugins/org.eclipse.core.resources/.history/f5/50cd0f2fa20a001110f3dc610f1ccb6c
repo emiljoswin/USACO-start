@@ -1,0 +1,32 @@
+/*
+ID: ejoswin2
+LANG: JAVA
+TASK: milk2
+ */
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
+
+public class milk {
+
+	/**
+	 * @param args
+	 * @throws Exception 
+	 */
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+		new milk().go();
+	}
+
+	private void go() throws Exception {
+		// TODO Auto-generated method stub
+		BufferedReader bin = new BufferedReader(new FileReader("milk2.in"));
+		PrintWriter pout = new PrintWriter(new BufferedWriter(new FileWriter("milk2.out")));
+	}
+
+}

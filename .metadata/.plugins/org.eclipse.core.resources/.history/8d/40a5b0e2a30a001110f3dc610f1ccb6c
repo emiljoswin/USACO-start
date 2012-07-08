@@ -1,0 +1,82 @@
+/*
+ID: ejoswin2
+LANG: JAVA
+TASK: milk2
+ */
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+
+public class milk {
+
+	/**
+	 * @param args
+	 * @throws Exception 
+	 */
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+		new milk().go();
+	}
+
+	private void go() throws Exception {
+		// TODO Auto-generated method stub
+		BufferedReader bin = new BufferedReader(new FileReader("milk2.in"));
+		PrintWriter pout = new PrintWriter(new BufferedWriter(new FileWriter("milk2.out")));
+		int count = Integer.parseInt(bin.readLine());
+		
+		int[][] array = new int[count][2];
+		for(int i = 0; i < count; i++){
+			StringTokenizer st = new StringTokenizer(bin.readLine());
+			array[i][0] = Integer.parseInt(st.nextToken());
+			array[i][1] = Integer.parseInt(st.nextToken());
+		}
+		
+		int[] result = compute(array,count);
+		
+		
+		
+		
+		pout.close();
+	}
+
+	private int[] compute(int[][] array, int count) {
+		// TODO Auto-generated method stub
+		int[] temp = new int[count];
+		for(int i = 0; i < count; i++){
+			temp[i] = array[i][0];
+		}
+		
+		Arrays.sort(temp);
+		
+		int[][] a = new int[count][2];
+		for(int i = 0; i < count; i++){
+			for(int j= 0; j  < count; j++){
+				if(temp[i] == array[j][0]){
+					a[i][0] = array[j][0];
+					a[i][1] = array[j][1];
+					break;
+				}
+			}
+		}
+		
+		
+		for(int i = 0; i < count; i++){
+			System.out.println(Arrays.toString(a[i]));
+		}
+		
+		int no = 0;
+		int yes = Integer.MAX_VALUE;
+		for(int i = 0; i < count-1; i++){
+			
+		}
+		return null;
+	}
+
+}

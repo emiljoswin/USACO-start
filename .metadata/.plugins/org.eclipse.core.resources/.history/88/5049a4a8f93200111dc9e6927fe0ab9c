@@ -1,0 +1,130 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+
+public class clocks {
+
+	/**
+	 * @param args
+	 * @throws Exception 
+	 */
+	int[] in = new int[9];
+    ArrayList<Integer> al = new ArrayList<Integer>();
+    int[] res = new int[50];
+    int resi = -1;
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+		new clocks().go();
+	}
+
+	private void go() throws Exception {
+		// TODO Auto-generated method stub
+		BufferedReader bin = new BufferedReader(new FileReader("clocks.in"));
+		PrintWriter pout = new PrintWriter(new BufferedWriter(new FileWriter("clocks.out")));
+		int j = 0;
+		for(int i = 0; i < 3; i++){
+			String str = bin.readLine().trim();
+//			System.out.println(str);
+			String[] s = str.split(" ");
+			in[j++] = Integer.parseInt(s[0]);
+			in[j++] = Integer.parseInt(s[1]);
+			in[j++] = Integer.parseInt(s[2]);
+		}
+		for(int i = 0; i < 9; i++){
+			in[i] = (12-in[i])/3;
+		}
+		System.out.println(Arrays.toString(in));
+//		                  a,b,c,d,e,f,g,h,i
+		int[][] moves = {{1,1,0,1,1,0,0,0,0}, 
+						 {1,1,1,0,0,0,0,0,0},
+						 {0,1,1,0,1,1,0,0,0},
+						 {1,0,0,1,0,0,1,0,0},
+						 {0,1,0,1,1,1,0,1,0},
+						 {0,0,1,0,0,1,0,0,1},
+						 {0,0,0,1,1,0,1,1,0},
+						 {0,0,0,0,0,0,1,1,1},
+						 {0,0,0,0,1,1,0,1,1}
+		                  };
+						
+		compute(moves);
+		System.out.println(Arrays.toString(in));
+	}
+
+	private void compute(int[][] moves) {
+		// TODO Auto-generated method stub
+		if(allDone()){
+			System.out.println("complete");
+			System.exit(0);
+		}
+//		if(!valid()){
+//			return;
+//		}
+		for(int i = 0;i < 9; i++){
+			boolean check = applyMove(i,moves);
+			System.out.println(Arrays.toString(in));
+//			al.add(i);
+			if(valid()){
+				res[++resi] = i;
+				compute(moves);
+			}else{
+				if(resi!= -1){
+					int element = res[resi];
+					removeMove(element,moves);
+					resi--;
+				}
+			}
+//			if(al.size()>0){
+////				int element = (int)al.get(al.size()-1);
+//				int element = res[res-1];
+//				removeMove(element,moves);
+////				al.remove(al.size()-1);
+//				res--;
+//			}			
+		}
+	}
+
+	private void removeMove(int element, int[][] moves) {
+		// TODO Auto-generated method stub
+		for(int i = 0; i < 9;i++){
+			in[i] = in[i]+ moves[element][i];
+		}
+	}
+
+	private boolean valid() {
+		// TODO Auto-generated method stub
+		for(int i = 0; i < 9; i++){
+			if(in[i]<0) return false;
+		}
+		return true;
+	}
+
+	private boolean applyMove(int i, int[][] moves) {
+		// TODO Auto-generated method stub
+		int[] temp = in;
+		for(int j = 0; j < 9; j++){
+			temp[j] = temp[j] - moves[i][j];
+//			if(temp[j] < 0){
+//				return false;
+//			}
+		}
+		in = temp;
+		return true;
+	}
+
+	private boolean allDone() {
+		// TODO Auto-generated method stub
+		for(int i = 0; i < 9; i++){
+			if(in[i]!= 0){
+				return false;
+			}
+		}
+		return true;
+	}
+
+}
